@@ -16,7 +16,12 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4    
+    steps:    
+    - name: Print Inputs
+      run: |
+        echo "Input 1: ${{ inputs.service_name }}"
+        echo "Input 2: ${{ inputs.short_sha }}"
+        echo "Input 3: ${{ inputs.branch_name }}" 
+    - uses: actions/checkout@v4
     - name: Build the Docker image
       run: docker build -t "${{ inputs.service_name }}-${{ inputs.short_sha }}-${{ inputs.branch_name }}" .

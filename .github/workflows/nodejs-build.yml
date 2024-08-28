@@ -9,9 +9,9 @@ on:
       #short_sha:
       #  required: true
       #  type: string
-      #branch_name:
-      #  required: true
-      #  type: string      
+      branch_name:
+        required: true
+        type: string      
 
 jobs:
   build:
@@ -24,4 +24,4 @@ jobs:
     - name: Show Short Git SHA
       run: echo "short_sha=$(echo ${{ github.sha }} | cut -c1-7)" >> $GITHUB_ENV
     - name: Build the Docker image
-      run: docker build -t "${{ inputs.service_name }}-${{ env.short_sha }}-${{ github.head_ref }}" .
+      run: docker build -t "${{ inputs.service_name }}-${{ env.short_sha }}-${{ inputs.branch_name }}" .

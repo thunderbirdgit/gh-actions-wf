@@ -1,0 +1,30 @@
+name: Determine Git SHA
+
+on:
+  workflow_call:
+    outputs:
+      short_sha:
+        description: "Short Git SHA"
+        value: ${{ jobs.get-short-sha.outputs.short_sha }}
+        
+jobs:
+  get-short-sha:
+    runs-on: ubuntu-latest
+    outputs:
+      short_sha: ${{ steps.get_sha.outputs.short_sha }}
+    steps:
+      - name: Show Short Git SHA
+        id: get_sha
+        run: | 
+          if [ "${{ github.event_name }}" == "push" ]; then
+            echo "short_sha=$(echo ${{ github.sha }} | cut -c1-7)" >> $GITHUB_OUTPUT
+          elif [ "${{ github.event_name }}" == "pull_request" ]; then
+            echo "short_sha=$(echo ${{ github.event.pull_request.head.sha }} | cut -c1-7)" >> $GITHUB_OUTPUT
+          else
+            echo "short_sha=$(echo ${{ github.sha }} | cut -c1-7)" >> $GITHUB_OUTPUT
+
+          fi
+        
+      - name: Print Short Git SHA
+        run: |          
+          echo "Git SHA: ${{ steps.get_sha.outputs.short_sha }}"

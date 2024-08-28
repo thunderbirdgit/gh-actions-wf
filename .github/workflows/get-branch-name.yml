@@ -1,7 +1,11 @@
 name: Determine Branch Name
 
 on:
-  workflow_call:    
+  workflow_call:
+    outputs:
+      branch_name:
+        description: "The name of the branch"
+        value: ${{ jobs.determine-branch.outputs.branch_name }}
 
 jobs:  
   determine-branch:

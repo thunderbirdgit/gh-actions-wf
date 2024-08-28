@@ -23,7 +23,5 @@ jobs:
         echo "Input 2: ${{ inputs.short_sha }}"
         echo "Input 3: ${{ inputs.branch_name }}"
     - uses: actions/checkout@v4
-    - name: Show Short Git SHA
-      run: echo "short_sha=$(echo ${{ github.sha }} | cut -c1-7)" >> $GITHUB_ENV
     - name: Build the Docker image
-      run: docker build -t "${{ inputs.service_name }}-${{ env.short_sha }}-${{ inputs.branch_name }}" .
+      run: docker build -t "${{ inputs.service_name }}-${{ inputs.short_sha }}-${{ inputs.branch_name }}" .

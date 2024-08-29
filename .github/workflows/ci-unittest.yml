@@ -1,7 +1,10 @@
 name: Multi-Repo Github Actions Unit Testing
 
 on:
-  workflow_dispatch:
+  workflow_dispatch:  
+  push:
+    branches:
+      - main    
 
 jobs:
   trigger-other-repo-workflows:

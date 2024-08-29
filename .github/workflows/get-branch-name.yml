@@ -17,12 +17,15 @@ jobs:
         id: get_branch
         run: |
           ## Get source branch name for push event
-          if [[ "${{ github.event_name }}" == "push" || "${{ github.event_name }}" == "repository_dispatch" ]]; then
+          if [ "${{ github.event_name }}" == "push" ]; then
             branch_name=${GITHUB_REF#refs/heads/}
             echo "branch_name=$branch_name" >> $GITHUB_OUTPUT
           ## Get head branch name for pull_request event
           elif [ "${{ github.event_name }}" == "pull_request" ]; then
             echo "branch_name=${{ github.head_ref }}" >> $GITHUB_OUTPUT
+          ## Set branch name to unittest for pull_request event          
+          elif [ "${{ github.event_name }}" == "repository_dispatch" ]; then
+            echo "branch_name=${{ github.event.action }}" >> $GITHUB_OUTPUT
           fi
 
       - name: Print Final Branch Name

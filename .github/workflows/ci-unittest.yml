@@ -14,4 +14,4 @@ jobs:
         -H "Authorization: token ${{ secrets.GH_ACTIONS_TOKEN }}" \
         -H "Accept: application/vnd.github.v3+json" \
         https://api.github.com/repos/thunderbirdgit/hw-ui-service/dispatches \
-        -d '{"event_type":"ci-unittest"}'
+        -d '{"event_type":"ci-unittest"} "client_payload": {"ref": "refs/heads/thunderbirdgit-patch-2"}}'

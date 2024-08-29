@@ -6,6 +6,7 @@ on:
 jobs:
   trigger-other-repo-workflows:
     runs-on: ubuntu-latest
+    # Trigger workflows in other repos
     steps:
     - name: Trigger workflow in hw-ui-service
       run: |

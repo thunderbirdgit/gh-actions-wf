@@ -11,7 +11,16 @@ on:
         type: string
       branch_name:
         required: true
-        type: string      
+        type: string
+      aws-access-key-id:
+        required: true
+        type: string
+      aws-secret-access-key:
+        required: true
+        type: string
+      aws-region:
+        required: true
+        type: string
 env:
   ECR_REPO: "050752621859.dkr.ecr.us-west-2.amazonaws.com"
   

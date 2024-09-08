@@ -32,13 +32,20 @@ jobs:
       
     - name: Tag the Docker image
       run: docker tag "${{ inputs.service_name }}":latest "$ECR_REPO/${{ inputs.service_name }}":latest
-      
+
+    - name: Check AWS Credentials
+      run: |
+        echo "AWS Access Key ID: ${{ secrets.AWS_ACCESS_KEY_ID }}"
+        echo "AWS Secret Access Key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}"
+        echo "AWS Region: ${{ secrets.AWS_REGION }}"
+          
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ${{ secrets.AWS_REGION }}
+        
     
     - name: Log in to Amazon ECR
       uses: aws-actions/amazon-ecr-login@v1

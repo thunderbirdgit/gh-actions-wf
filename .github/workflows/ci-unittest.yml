@@ -26,3 +26,20 @@ jobs:
         -H "Accept: application/vnd.github.v3+json" \
         https://api.github.com/repos/thunderbirdgit/hw-ui-service/dispatches \
         -d '{"event_type":"ci-unittest", "client_payload": {"ref": "refs/heads/thunderbirdgit-patch-2"}}'
+
+
+    - name: Trigger workflow in hw-nodejs on default branch
+      run: |
+        curl -X POST \
+        -H "Authorization: token ${{ secrets.GH_ACTIONS_TOKEN }}" \
+        -H "Accept: application/vnd.github.v3+json" \
+        https://api.github.com/repos/thunderbirdgit/hw-nodejs/dispatches \
+        -d '{"event_type":"ci-unittest"}'
+        
+    - name: Trigger workflow in hw-nodejs on non default branch
+      run: |
+        curl -X POST \
+        -H "Authorization: token ${{ secrets.GH_ACTIONS_TOKEN }}" \
+        -H "Accept: application/vnd.github.v3+json" \
+        https://api.github.com/repos/thunderbirdgit/hw-nodejs/dispatches \
+        -d '{"event_type":"ci-unittest", "client_payload": {"ref": "refs/heads/nodeapp"}}'

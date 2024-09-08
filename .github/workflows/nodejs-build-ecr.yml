@@ -32,6 +32,10 @@ jobs:
     - name: Log in to Amazon ECR
       uses: aws-actions/amazon-ecr-login@v1      
       with:
-        region: ${{ secrets.AWS_REGION }}
+        registries: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
+      env:
+        AWS_REGION: ${{ secrets.AWS_REGION }}
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     - name: Publish the Docker image to ECR repo
       run: docker push "$ECR_REPO/${{ inputs.service_name }}":latest

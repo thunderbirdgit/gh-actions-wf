@@ -51,7 +51,7 @@ jobs:
     - name: Log in to Amazon ECR
       uses: aws-actions/amazon-ecr-login@v1
       with:
-        registries: ${{ env.ECR_REPO }}
+        registries: "050752621859"
     
     - name: Publish the Docker image to ECR repo
       run: docker push "$ECR_REPO/${{ inputs.service_name }}:latest"

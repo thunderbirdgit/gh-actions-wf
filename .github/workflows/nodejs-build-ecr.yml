@@ -23,11 +23,13 @@ jobs:
       run: |
         echo "Service Name: ${{ inputs.service_name }}"
         echo "Git SHA: ${{ inputs.short_sha }}"
-        echo "Branch Name: ${{ inputs.branch_name }}"
+        echo "Branch Name: ${{ inputs.branch_name }}"    
     - uses: actions/checkout@v4
     - name: Build the Docker image
       run: docker build -t "${{ inputs.service_name }}" .
     - name: Tag the Docker image
       run: docker tag "${{ inputs.service_name }}":latest "$ECR_REPO/${{ inputs.service_name }}":latest
+    - name: Log in to Amazon ECR
+      uses: aws-actions/amazon-ecr-login@v1
     - name: Publish the Docker image to ECR repo
       run: docker push "$ECR_REPO/${{ inputs.service_name }}":latest
